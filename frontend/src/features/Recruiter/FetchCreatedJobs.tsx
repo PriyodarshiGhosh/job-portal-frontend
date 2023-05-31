@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { axiosInstance } from '@/utils/axios';
 import ReactModal from "react-modal";
 import FetchApplication from './FetchApplication';
+import useFetchApplicationView from "./views/useFetchApplication";
 const JobsList = () => {
   const [error, setError] = useState('');
   const [recruiterId, setRecruiterId] = useState('');
@@ -13,6 +14,7 @@ const JobsList = () => {
   const [isFetchingApplications, setIsFetchingApplications] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
    const handleFetchApplications = (jobId: any) => {
      setSelectedJobId(jobId);
      setIsModalOpen(true);
@@ -63,7 +65,7 @@ const JobsList = () => {
         setJobData(response.data);
         setCurrentPage(previousPage);
       } catch (error) {
-        alert("Error fetching jobs");
+        
       }
     }
   };
@@ -84,7 +86,7 @@ const JobsList = () => {
         setJobData(response.data);
         setCurrentPage(nextPage);
       } catch (error) {
-        alert("Error fetching jobs");
+        
       }
     }
   };
@@ -108,19 +110,24 @@ const JobsList = () => {
         
       </form>
       {jobData && jobData.data.length > 0  ? (
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
           {jobData.data.map((jobApplication: any) => (
+            
             <div
               key={jobApplication.id}
-              className="bg-white border-gray-200 shadow-md rounded-lg mb-4 p-4"
+              className="bg-white border-gray-200 shadow-md rounded-lg mb-4 p-4 justify-between"
+              style={{height:'250px', width: '280px' ,marginRight: '20px'}}
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between" >
                 <div>
-                  <p className="text-gray-800 font-bold">ID: {jobApplication.id}</p>
-                  <p className="text-gray-800 font-bold">Title: {jobApplication.title}</p>
-                  <p className="text-gray-800 font-bold">Description: {jobApplication.description}</p>
-                  <p className="text-gray-800 font-bold">Location: {jobApplication.location}</p>
-                  <p className="text-gray-800 font-bold">Salary: {jobApplication.salary}</p>
+                  <p className="text-gray-800 font-bold">Title:</p>
+                  <p className="text-gray-800 font-bold">{jobApplication.title}</p>
+                  <p className="text-gray-800 font-bold">Description:</p>
+                  <p className="text-gray-800 font-bold"> {jobApplication.description}</p>
+                  <p className="text-gray-800 font-bold">Location:</p>
+                  <p className="text-gray-800 font-bold"> {jobApplication.location}</p>
+                  <p className="text-gray-800 font-bold">Salary:</p>
+                  <p className="text-gray-800 font-bold"> {jobApplication.salary}</p>
                 </div>
               </div>
               <button
@@ -128,9 +135,10 @@ const JobsList = () => {
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 onClick={() => handleFetchApplications(jobApplication.id)}
               >
-                Fetch Applications
+                View Applications
               </button>
             </div>
+           
           ))}
         </div>
       ) : (
@@ -166,14 +174,16 @@ const JobsList = () => {
       {jobData && jobData.pagination &&(
         <div className="flex justify-center mt-4">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
+            style={{ marginRight: '5px' ,width:'70px'}}
           >
-            Previous
+            Back
           </button>
+          <p className="text-gray-800 font-bold">Page {currentPage} of {jobData.pagination.totalPages}</p>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={handleNextPage}
             disabled={currentPage === jobData.pagination.totalPages}
           >

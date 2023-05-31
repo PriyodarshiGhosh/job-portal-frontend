@@ -58,7 +58,7 @@ const CandidatesPage = () => {
           <JobSearchPage />
         }
       </div>
-      <ToastContainer/>
+      
     </div>
   );
 };

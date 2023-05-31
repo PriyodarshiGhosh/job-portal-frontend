@@ -78,7 +78,7 @@ export default function Login() {
         >
           Log In
         </button>
-        <ToastContainer/>
+        
         <div className="mt-4">
           <p className="text-gray-700 text-center">
             Don't have an account?{' '}

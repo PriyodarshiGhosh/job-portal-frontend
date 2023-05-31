@@ -53,7 +53,7 @@ const useJobSearchView = (role: string, currentPage: number,setCurrentPage:any,j
         setJobData(response.data);
         setCurrentPage(previousPage);
       } catch (error) {
-        alert("Error fetching jobs");
+        
       }
     }
   };
@@ -76,7 +76,7 @@ const useJobSearchView = (role: string, currentPage: number,setCurrentPage:any,j
         setJobData(response.data);
         setCurrentPage(nextPage);
       } catch (error) {
-        alert("Error fetching jobs");
+        
       }
     }
   };
@@ -89,7 +89,7 @@ const useJobSearchView = (role: string, currentPage: number,setCurrentPage:any,j
       console.log(jobResult)
       setJobData(jobResult);
       setCurrentPage(1);
-      alert('Here are the list of available jobs');
+     
     } catch (error) {
       alert('Error fetching jobs');
     }

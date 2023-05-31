@@ -39,7 +39,7 @@ export default function Register() {
           onSubmit(e);
         } else {
           // Show an error message or perform any other necessary action
-          alert('Passwords do not match');
+          // alert('Passwords do not match');
         }
       };
   return (
@@ -107,13 +107,13 @@ export default function Register() {
             Confirm Password
           </label>
           <input
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${passwordMatch ? '' : 'border-red-500'}`}
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
             id="confirmPassword"
             type="password"
             placeholder="Confirm Password"
             onChange={handleConfirmPasswordChange}
           />
-          {!passwordMatch && (
+          {!passwordMatch && confirmPassword&& (
             <p className="text-red-500 text-xs italic">Passwords do not match</p>
           )}
         </div>
@@ -146,7 +146,7 @@ export default function Register() {
           >
             Register
           </button>
-          <ToastContainer/>
+          
         </div>
         <div className="mt-4">
           <p className="text-gray-700 text-center">

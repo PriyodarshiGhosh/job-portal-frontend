@@ -54,22 +54,22 @@ export default function JobSearch() {
       </form>
 
       {jobData && jobData.data.length > 0 && (
-        <div className="mt-8 grid grid-cols-4 gap-2">
+        <div className="mt-8 grid grid-cols-2 gap-2">
           {jobData.data.map((job: any) => (
             <div
               key={job.id}
               className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between"
+              style={{height:'250px', width: '280px' ,marginRight: '20px'}}
             >
               <div>
-                <p className="text-gray-800 font-bold">ID: {job.id}</p>
-                <p className="text-gray-800 font-bold">Title: {job.title}</p>
-                <p className="text-gray-800 font-bold">
-                  Description: {job.description}
-                </p>
-                <p className="text-gray-800 font-bold">
-                  Location: {job.location}
-                </p>
-                <p className="text-gray-800 font-bold">Salary: {job.salary}</p>
+                <p className="text-gray-800 font-bold">Title:</p>
+                <p className="text-gray-800 font-bold"> {job.title}</p>
+                <p className="text-gray-800 font-bold">Description:</p>
+                <p className="text-gray-800 font-bold">{job.description}</p>
+                <p className="text-gray-800 font-bold">Location:</p>
+                <p className="text-gray-800 font-bold">{job.location}</p>
+                <p className="text-gray-800 font-bold">Salary:</p>
+                <p className="text-gray-800 font-bold">{job.salary}</p>
               </div>
               <button
                 type="button"
@@ -94,14 +94,16 @@ export default function JobSearch() {
       {jobData && jobData.pagination &&(
         <div className="flex justify-center mt-4">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
+            style={{ marginRight: '5px' ,width:'70px'}}
           >
-            Previous
+            Back
           </button>
+          <p className="text-gray-800 font-bold">Page {currentPage} of {jobData.pagination.totalPages}</p>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={handleNextPage}
             disabled={currentPage === jobData.pagination.totalPages}
           >

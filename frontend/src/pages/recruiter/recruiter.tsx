@@ -61,7 +61,7 @@ const Recruiter = () => {
           <CreateJobPage />
         }
       </div>
-      <ToastContainer/>
+     
     </div>
   );
 };

@@ -15,16 +15,14 @@ const useFetchApplicationView=(Id:number,jobData:any,setJobData:any)=>{
         return data;
       });
     
-      const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+      const handleSubmit = async () => {
         const jwtToken = localStorage.getItem('token') || '';
         try {
           const jobResult = await mutateAsync(jwtToken);
           setJobData(jobResult);
           console.log(jobResult);
-          alert('Here are the list of available applicants for your posted job');
         } catch (error) {
-          alert(`No applicants for this position`);
+          
         }
       };
     

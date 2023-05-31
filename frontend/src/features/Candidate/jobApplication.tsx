@@ -6,7 +6,7 @@ import ApiRoutes from '@/config/apiRoutes';
 export default function JobApplication() {
   const [error, setError] = useState('');
   const [selectedJob, setSelectedJob] = useState('');
-  const [showApplications, setShowApplications] = useState(false); // State variable to track whether to show applications
+  const [showApplications, setShowApplications] = useState(true); // State variable to track whether to show applications
 
   const { data: jobApplications, isLoading, isError } = useQuery(
     ['jobApplications'],
@@ -45,20 +45,6 @@ export default function JobApplication() {
   return (
     <div>
       <h1 className="text-2xl font-bold mt-8">Your Job Applications</h1>
-      <button onClick={toggleApplications} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-      style={
-        {
-        position:'relative',
-        top: '20px',
-        left: '357px',
-        width: '148px',
-        height: '46px',
-        opacity:1
-    }
-    }>
-        {showApplications ? 'Hide jobs' : 'See all jobs'}
-        
-      </button>
       {showApplications && (
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {jobApplications.map((jobApplication: any) => (
