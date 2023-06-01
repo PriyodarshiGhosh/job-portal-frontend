@@ -11,7 +11,7 @@ type ApplyJobProps = {
 export default function ApplyJob({ jobId, closeModal }: ApplyJobProps) {
   const [resume, setResume] = useState('');
   const [jobIdState, setJobIdState] = useState('');
-
+  const { handleSubmit } = useApplyJobView(resume, jobId);
   const router = useRouter();
 
   // Retrieve jobId from the query parameter in the URL
@@ -24,7 +24,7 @@ export default function ApplyJob({ jobId, closeModal }: ApplyJobProps) {
     }
   }, [router.query]);
 
-  const { handleSubmit } = useApplyJobView(resume, jobId);
+  
 
   return (
     <div className="min-h-screen py-8" style={{ backgroundImage: 'linear-gradient(0deg, #EDF6FF 60%, #303F60 60%)' }}>

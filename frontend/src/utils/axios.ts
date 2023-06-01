@@ -18,7 +18,7 @@ const getGenericErrorMessage = (e: any) => {
     const params = new URLSearchParams(window.location.search);
   
     request.headers['x-device-client'] = 'agent-partner-panel';
-    request.headers['x-platform-app'] = 'web';
+    
   
     if (storedToken || (params.get('auth') as string)) {
       request.headers.Authorization = !params.get('auth')
@@ -62,6 +62,7 @@ const getGenericErrorMessage = (e: any) => {
         }
         else if(error?.response?.status === 404||error?.response?.status === 422){
             console.log("error received")
+            throw error;
             toast.error('Invalid inputs given')
             
         }

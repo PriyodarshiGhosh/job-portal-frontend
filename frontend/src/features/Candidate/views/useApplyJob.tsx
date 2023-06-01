@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { axiosInstance } from '@/utils/axios';
 import ApiRoutes from '@/config/apiRoutes';
+import { toast } from 'react-toastify';
 const useApplyJobView=(resume:string,jobId:any)=>{
     const { mutateAsync } = useMutation(async (jwtToken: string) => {
         try {
@@ -28,9 +29,9 @@ const useApplyJobView=(resume:string,jobId:any)=>{
         console.log(jwtToken);
         try {
           await mutateAsync(jwtToken);
-          alert('Job application submitted successfully!');
+          toast.success('Job application submitted successfully!');
         } catch (error:any) {
-          alert(error.message);
+          
         }
       };
       return {

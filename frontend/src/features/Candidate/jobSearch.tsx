@@ -3,7 +3,10 @@ import useJobSearchView from "./views/useJobSearch";
 import { useRouter } from "next/router";
 import ReactModal from "react-modal";
 import ApplyJob from "./ApplyJob";
-
+import { useMutation } from "@tanstack/react-query";
+import { axiosInstance } from "@/utils/axios";
+import ApiRoutes from "@/config/apiRoutes";
+import { toast } from "react-toastify";
 export default function JobSearch() {
   const [role, setRole] = useState("");
   const [jobData, setJobData] = useState<any>(null);
@@ -11,6 +14,34 @@ export default function JobSearch() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState("")
 
+  const { mutateAsync } = useMutation(async (param:{resume:any,jobId:any,jwtToken:any}) => {
+    try {
+      const response = await axiosInstance.post(
+        ApiRoutes.CANDIDATE,
+        { resume:param.resume, jobId:param.jobId },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${param.jwtToken}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error('Error submitting job application');
+    }
+  });
+  const handleJobApply = async (resume:any,jobId:any) => {
+    const jwtToken = localStorage.getItem('token') || '';
+    console.log(jwtToken);
+    
+    try {
+      await mutateAsync({resume:'vvv',jobId:jobId,jwtToken});
+      toast.success('Job application submitted successfully!');
+    } catch (error:any) {
+      
+    }
+  };
   const router = useRouter();
   const { handleSubmit, handleApply,handlePreviousPage,handleNextPage } = useJobSearchView(role,currentPage,setCurrentPage,jobData,setJobData,router);
 
@@ -76,19 +107,19 @@ export default function JobSearch() {
               style={{height:'250px', width: '280px' ,marginRight: '20px'}}
             >
               <div>
-                <p className="text-gray-800 font-bold">Title:</p>
+                
                 <p className="text-gray-800 font-bold"> {job.title}</p>
                 <p className="text-gray-800 font-bold">Description:</p>
-                <p className="text-gray-800 font-bold">{job.description}</p>
+                <p className="text-gray-800 font-light">{job.description}</p>
                 <p className="text-gray-800 font-bold">Location:</p>
-                <p className="text-gray-800 font-bold">{job.location}</p>
+                <p className="text-gray-800 font-light">{job.location}</p>
                 <p className="text-gray-800 font-bold">Salary:</p>
-                <p className="text-gray-800 font-bold">{formatSalary(job.salary)}</p>
+                <p className="text-gray-800 font-light">{formatSalary(job.salary)}</p>
               </div>
               <button
                 type="button"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => openModal(job.id)}
+                onClick={() => handleJobApply('vvv',job.id)}
               >
                 Apply
               </button>

@@ -6,15 +6,14 @@ const CreateJob = () => {
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [salary, setSalary] = useState('');
-
-  const { handleSubmit } = useCreateJobView(title, description, location, salary,setTitle,setDescription,setLocation,setSalary);
+  const { handleSubmit ,error,handleErrorChange} = useCreateJobView(title, description, location, salary,setTitle,setDescription,setLocation,setSalary);
 
   const handleFormSubmit = (event:any) => {
     event.preventDefault();
     handleSubmit();
     
   };
-
+  
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl font-bold mt-8">Create a Job Posting</h1>
@@ -40,21 +39,35 @@ const CreateJob = () => {
             id="title"
             placeholder="Enter your title here"
             value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            onChange={(event) => {if(error?.title){
+              handleErrorChange('title')
+              
+            }
+            setTitle(event.target.value)
+          }
+            
+            }
           />
+          {error?.title?.length ? (<p className='text-red-600'>{error?.title}</p>):null  }
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="description">
             Description
           </label>
-          <input
-            type="text"
+          <textarea
+           
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="description"
             placeholder="Enter your description here"
             value={description}
-            onChange={(event) => setDescription(event.target.value)}
+            onChange={(event) => {if(error?.description){
+              handleErrorChange('description')
+              
+            }
+            setDescription(event.target.value)
+          }}
           />
+          {error?.description?.length ? (<p className='text-red-600'>{error?.description}</p>):null  }
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="location">
@@ -66,8 +79,14 @@ const CreateJob = () => {
             id="location"
             placeholder="Enter your location here"
             value={location}
-            onChange={(event) => setLocation(event.target.value)}
+            onChange={(event) => {if(error?.location){
+              handleErrorChange('location')
+              
+            }
+            setLocation(event.target.value)
+          }}
           />
+          {error?.location?.length ? (<p className='text-red-600'>{error?.location}</p>):null  }
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="salary">
@@ -79,13 +98,19 @@ const CreateJob = () => {
             id="salary"
             placeholder="Enter your salary here"
             value={salary}
-            onChange={(event) => setSalary(event.target.value)}
+            onChange={(event) => {if(error?.salary){
+              handleErrorChange('salary')
+              
+            }
+            setSalary(event.target.value)
+          }}
           />
+          {error?.salary?.length ? (<p className='text-red-600'>{error?.salary}</p>):null  }
         </div>
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
+        disabled={Object.keys(error)?.length > 0}>
           Submit
         </button>
       </form>

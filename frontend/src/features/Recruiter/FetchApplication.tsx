@@ -13,6 +13,7 @@ export default function FetchApplication({ jobId, closeModal }: FetchApplication
 
   useEffect(() => {
     // Call the handleSubmit function immediately after rendering
+     console.log(jobId)
         handleSubmit();
   }, []);
 
@@ -31,7 +32,7 @@ export default function FetchApplication({ jobId, closeModal }: FetchApplication
         </h2>
         {jobData && jobData.length > 0 ? (
           <div className="mt-8">
-            <h2 className="text-xl font-bold mb-4">Resume of Applicants</h2>
+            <h2 className="text-xl font-bold mb-4">Applicant details</h2>
             {jobData.map((job:any) => (
               <div
                 key={job.id}
@@ -39,6 +40,7 @@ export default function FetchApplication({ jobId, closeModal }: FetchApplication
               >
                 <p className="text-gray-800 font-bold">Email:</p>
                 <p className="text-gray-800 font-bold">{job[0].email}</p>
+                <p className="text-gray-800 font-bold">{job[0].resume}</p>
               </div>
             ))}
           </div>

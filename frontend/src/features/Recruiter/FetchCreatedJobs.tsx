@@ -12,7 +12,7 @@ const JobsList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [jobData, setJobData] = useState<any>(null);
   const [isFetchingApplications, setIsFetchingApplications] = useState(false);
-  const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
+  const [selectedJobId, setSelectedJobId] = useState<number | "">("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   
    const handleFetchApplications = (jobId: any) => {
@@ -21,9 +21,22 @@ const JobsList = () => {
    };
    const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedJobId(0);
+    setSelectedJobId('');
   };
-
+  const formatSalary = (salary:string) => {
+    const numericValue = parseInt(salary, 10); // Parse the string salary to numeric value
+    if (!isNaN(numericValue)) {
+      if (numericValue >= 10000000) {
+        return `${numericValue / 10000000} crore`;
+      } else if (numericValue >= 100000) {
+        return `${numericValue / 100000} lac`;
+      } else {
+        return `${numericValue} thousand`;
+      }
+    } else {
+      return salary; // Return the original string if parsing fails
+    }
+  };
   const { data: jobApplications, isLoading, isError, refetch } = useQuery(
     ['jobApplications', recruiterId],
     async () => {
@@ -116,18 +129,19 @@ const JobsList = () => {
             <div
               key={jobApplication.id}
               className="bg-white border-gray-200 shadow-md rounded-lg mb-4 p-4 justify-between"
-              style={{height:'250px', width: '280px' ,marginRight: '20px'}}
+              style={{height:'250px', width: '280px' ,marginRight: '20px',padding:'10px'}
+            }
             >
               <div className="flex items-center justify-between" >
-                <div>
-                  <p className="text-gray-800 font-bold">Title:</p>
+                <div
+                style={{padding:'10px'}}>
                   <p className="text-gray-800 font-bold">{jobApplication.title}</p>
-                  <p className="text-gray-800 font-bold">Description:</p>
-                  <p className="text-gray-800 font-bold"> {jobApplication.description}</p>
-                  <p className="text-gray-800 font-bold">Location:</p>
-                  <p className="text-gray-800 font-bold"> {jobApplication.location}</p>
-                  <p className="text-gray-800 font-bold">Salary:</p>
-                  <p className="text-gray-800 font-bold"> {jobApplication.salary}</p>
+                  <p className="text-gray-800 font-bold">Description</p>
+                  <p className="text-gray-800 font-light"> {jobApplication.description}</p>
+                  <p className="text-gray-800 font-bold">Location</p>
+                  <p className="text-gray-800 font-light"> {jobApplication.location}</p>
+                  <p className="text-gray-800 font-bold">Salary</p>
+                  <p className="text-gray-800 font-light"> {formatSalary(jobApplication.salary)}</p>
                 </div>
               </div>
               <button
@@ -145,7 +159,7 @@ const JobsList = () => {
         <div>No job applications found.</div>
       )}
       <ReactModal
-  isOpen={isModalOpen}
+  isOpen={String(selectedJobId)?.length>0}
   onRequestClose={closeModal}
   className="modal"
   overlayClassName="modal-overlay"
