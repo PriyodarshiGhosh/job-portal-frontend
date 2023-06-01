@@ -2,5 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/recruiter/recruiter": "pages/recruiter/recruiter.js"
+  "/candidate/candidatePage": "pages/candidate/candidatePage.js"
 }

@@ -23,6 +23,20 @@ export default function JobSearch() {
     setSelectedJobId(jobId);
     setIsModalOpen(true);
   };
+  const formatSalary = (salary:string) => {
+    const numericValue = parseInt(salary, 10); // Parse the string salary to numeric value
+    if (!isNaN(numericValue)) {
+      if (numericValue >= 10000000) {
+        return `${numericValue / 10000000} crore`;
+      } else if (numericValue >= 100000) {
+        return `${numericValue / 100000} lac`;
+      } else {
+        return `${numericValue} thousand`;
+      }
+    } else {
+      return salary; // Return the original string if parsing fails
+    }
+  };
   
 
   return (
@@ -69,7 +83,7 @@ export default function JobSearch() {
                 <p className="text-gray-800 font-bold">Location:</p>
                 <p className="text-gray-800 font-bold">{job.location}</p>
                 <p className="text-gray-800 font-bold">Salary:</p>
-                <p className="text-gray-800 font-bold">{job.salary}</p>
+                <p className="text-gray-800 font-bold">{formatSalary(job.salary)}</p>
               </div>
               <button
                 type="button"
