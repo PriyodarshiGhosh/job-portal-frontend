@@ -29,17 +29,16 @@ export default function FetchApplication({ jobId, closeModal }: FetchApplication
         <h2>
           <label className="block text-gray-700 font-bold mb-2">View Applicants</label>
         </h2>
-        {jobData.length > 0 ? (
+        {jobData && jobData.length > 0 ? (
           <div className="mt-8">
             <h2 className="text-xl font-bold mb-4">Resume of Applicants</h2>
-            {jobData.map((job) => (
+            {jobData.map((job:any) => (
               <div
                 key={job.id}
                 className="bg-white shadow-md rounded-lg p-4 mb-4"
               >
-                <p className="text-gray-800 font-bold">ID: {job.id}</p>
-                <p className="text-gray-800 font-bold">Resume: {job.resume}</p>
-                <p className="text-gray-800 font-bold">UserId: {job.userId}</p>
+                <p className="text-gray-800 font-bold">Email:</p>
+                <p className="text-gray-800 font-bold">{job[0].email}</p>
               </div>
             ))}
           </div>

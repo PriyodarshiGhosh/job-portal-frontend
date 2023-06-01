@@ -11,7 +11,7 @@ const useFetchApplicationView=(Id:number,jobData:any,setJobData:any)=>{
           },
         });
         const data = response.data;
-        console.log(data);
+        console.log(response.data)
         return data;
       });
     
@@ -20,7 +20,6 @@ const useFetchApplicationView=(Id:number,jobData:any,setJobData:any)=>{
         try {
           const jobResult = await mutateAsync(jwtToken);
           setJobData(jobResult);
-          console.log(jobResult);
         } catch (error) {
           
         }
