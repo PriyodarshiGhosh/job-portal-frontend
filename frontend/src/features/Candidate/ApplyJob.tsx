@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useApplyJobView from './views/useApplyJob';
-import ReactModal from 'react-modal';
 import { MdClose } from 'react-icons/md';
 type ApplyJobProps = {
   jobId: string;

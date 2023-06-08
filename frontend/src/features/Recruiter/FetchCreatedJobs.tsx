@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ApiRoutes from '@/config/apiRoutes';
 import jwt from 'jsonwebtoken';
 import { axiosInstance } from '@/utils/axios';
 import ReactModal from "react-modal";
 import FetchApplication from './FetchApplication';
-import useFetchApplicationView from "./views/useFetchApplication";
 import { toast } from 'react-toastify';
-import Router from 'next/router'
 import { useRouter } from 'next/router';
 const JobsList = () => {
   const [error, setError] = useState('');

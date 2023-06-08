@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation} from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { axiosInstance } from '@/utils/axios';
 import ApiRoutes from '@/config/apiRoutes';

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import ApiRoutes from '@/config/apiRoutes';
 import { axiosInstance } from '@/utils/axios';
-import { useRouter } from 'next/router';
 
 const useJobSearchView = (role: string, currentPage: number,setCurrentPage:any,jobData:any, setJobData: any,router:any) => {
   const [isLoading, setIsLoading] = useState(false);

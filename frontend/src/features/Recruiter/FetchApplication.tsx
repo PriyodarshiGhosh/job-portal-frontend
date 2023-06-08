@@ -1,5 +1,5 @@
 import useFetchApplicationView from "./views/useFetchApplication";
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { MdClose } from 'react-icons/md';
 
 type FetchApplicationProps = {

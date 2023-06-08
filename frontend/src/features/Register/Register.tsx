@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import useRegisterView from './views/useRegister';
 import 'react-toastify/dist/ReactToastify.css';
 export default function Register() {

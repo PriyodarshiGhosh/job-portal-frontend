@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useCreateJobView from "./views/useCreateJob";
 
 const CreateJob = () => {

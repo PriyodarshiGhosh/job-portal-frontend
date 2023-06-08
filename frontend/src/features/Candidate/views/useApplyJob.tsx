@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { axiosInstance } from '@/utils/axios';
 import ApiRoutes from '@/config/apiRoutes';
 import { toast } from 'react-toastify';
