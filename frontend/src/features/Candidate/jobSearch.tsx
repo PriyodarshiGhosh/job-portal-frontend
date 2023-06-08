@@ -13,7 +13,7 @@ export default function JobSearch() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState("")
-
+  const [isApplying, setIsApplying] = useState(false);
   const { mutateAsync } = useMutation(async (param:{resume:any,jobId:any,jwtToken:any}) => {
     try {
       const response = await axiosInstance.post(
@@ -40,6 +40,9 @@ export default function JobSearch() {
       toast.success('Job application submitted successfully!');
     } catch (error:any) {
       
+    }
+    finally {
+      setIsApplying(true); // Set isApplying back to false after the application is submitted
     }
   };
   const router = useRouter();
@@ -120,6 +123,7 @@ export default function JobSearch() {
                 type="button"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 onClick={() => handleJobApply('vvv',job.id)}
+                disabled={isApplying}
               >
                 Apply
               </button>

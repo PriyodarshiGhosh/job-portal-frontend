@@ -44,7 +44,12 @@ const getGenericErrorMessage = (e: any) => {
       const isRecruiterPage=window.location.pathname.includes(Routes.RECRUITER)
       if(isRegisterPage){
         if(error?.response?.status === 422){
-          toast.error('some entities have failed the check');
+          if(error?.response?.data?.errors?.password && error?.response?.data?.errors?.password[0]==='Password must be longer than or equal to 6 characters'){
+            toast.error('Password must be larger than 6 characters');
+          }
+          if(error?.response?.data?.errors?.email &&error?.response?.data?.errors?.email[0]==='Email must be an email'){
+            toast.error('Please enter a valid email');
+          }
           throw error;
         }
       }
