@@ -42,7 +42,7 @@ export default function JobSearch() {
       
     }
     finally {
-      setIsApplying(true); // Set isApplying back to false after the application is submitted
+      setIsApplying(true); 
     }
   };
   const router = useRouter();
@@ -123,7 +123,6 @@ export default function JobSearch() {
                 type="button"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 onClick={() => handleJobApply('vvv',job.id)}
-                disabled={isApplying}
               >
                 Apply
               </button>

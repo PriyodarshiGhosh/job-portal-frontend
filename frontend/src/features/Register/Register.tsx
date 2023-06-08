@@ -1,47 +1,25 @@
 import { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import useRegisterView from './views/useRegister';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styles from './toastStyles.module.css';
 export default function Register() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [role, setRole] = useState('');
-    const [passwordMatch, setPasswordMatch] = useState(false);
-    const {onSubmit}=useRegisterView(email,password,role)
-    const [showSkillsField, setShowSkillsField] = useState(false);
-    const router=useRouter();
-    const [skills, setSkills] = useState('');
-    const handleLoginClick = () => {
-        router.push('/auth/login');
-      };
-    const handleCandidateClick = () => {
-        setShowSkillsField(true);
-        setRole('candidate');
-      };
-    
-      const handleRecruiterClick = () => {
-        setShowSkillsField(false);
-        setRole('recruiter');
-      };
-      const handleConfirmPasswordChange = (e:any) => {
-        setConfirmPassword(e.target.value);
-        setPasswordMatch(e.target.value === password);
-      };
-      const handleSubmit = (e:any) => {
-        e.preventDefault();
-        if (passwordMatch) {
-          // Perform form submission or call onSubmit function
-          onSubmit(e);
-        } else {
-          // Show an error message or perform any other necessary action
-          // alert('Passwords do not match');
-        }
-      };
+    const {
+      onSubmit,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    role,
+    setRole,
+    passwordMatch, setPasswordMatch,
+    showSkillsField, setShowSkillsField,
+    skills, setSkills,
+    handleLoginClick,
+    handleCandidateClick,
+    handleRecruiterClick,handleConfirmPasswordChange,
+    handleSubmit}=useRegisterView()
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2"
       style={{
@@ -88,6 +66,7 @@ export default function Register() {
             type="text"
             placeholder="email"
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div className="mb-4">
@@ -100,6 +79,7 @@ export default function Register() {
             type="password"
             placeholder="Enter your password"
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <div className="mb-4">

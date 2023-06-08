@@ -6,21 +6,23 @@ import { useState } from 'react';
 import { generateError, handleRemoveKey } from '@/utils/constants';
 
 const useCreateJobView = (
-  title: string,
-  description: string,
-  location: string,
-  salary: string,
-  setTitle: (value: string) => void,
-  setDescription: (value: string) => void,
-  setLocation: (value: string) => void,
-  setSalary: (value: string) => void
+  
 ) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const [salary, setSalary] = useState('');
   const [error,setError]=useState<any>({})
   const handleErrorChange=(key:string)=>{
     const error1=handleRemoveKey(key,error)
     setError(error1)
     
   }
+  const handleFormSubmit = (event:any) => {
+    event.preventDefault();
+    handleSubmit();
+    
+  };
   const { mutateAsync } = useMutation(async (jwtToken: string) => {
     try{
 
@@ -77,7 +79,8 @@ const useCreateJobView = (
   return {
     handleSubmit,
     error,
-    handleErrorChange
+    handleErrorChange,
+    title, description, location, salary,setTitle,setDescription,setLocation,setSalary,handleFormSubmit
   };
 };
 

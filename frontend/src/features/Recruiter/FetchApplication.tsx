@@ -8,8 +8,7 @@ type FetchApplicationProps = {
 };
 
 export default function FetchApplication({ jobId, closeModal }: FetchApplicationProps) {
-  const [jobData, setJobData] = useState<any[]>([]);
-  const { handleSubmit } = useFetchApplicationView(jobId, jobData, setJobData);
+  const { handleSubmit,jobData,setJobData } = useFetchApplicationView(jobId);
 
   useEffect(() => {
     // Call the handleSubmit function immediately after rendering

@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
 import useLoginView from './views/useLogin';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Link from '@tanstack/react-query';
-import { useRouter } from 'next/router';
 export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(''); 
-    const router=useRouter();
-    const {handleSubmit}=useLoginView(email,password)
-    const handleRegisterClick = () => {
-        router.push('/auth/register');
-      };
+    
+    const {handleSubmit,
+      email,
+      setEmail,
+      password,
+      setPassword,
+      handleRegisterClick}=useLoginView()
+    
   return (
     <div className="flex items-center justify-center h-screen"
     style={{

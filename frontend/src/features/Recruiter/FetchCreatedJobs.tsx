@@ -6,15 +6,17 @@ import { axiosInstance } from '@/utils/axios';
 import ReactModal from "react-modal";
 import FetchApplication from './FetchApplication';
 import useFetchApplicationView from "./views/useFetchApplication";
+import { toast } from 'react-toastify';
+import Router from 'next/router'
+import { useRouter } from 'next/router';
 const JobsList = () => {
   const [error, setError] = useState('');
   const [recruiterId, setRecruiterId] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [jobData, setJobData] = useState<any>(null);
-  const [isFetchingApplications, setIsFetchingApplications] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState<number | "">("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const router=useRouter();
    const handleFetchApplications = (jobId: any) => {
      setSelectedJobId(jobId);
      setIsModalOpen(true);
@@ -113,6 +115,8 @@ const JobsList = () => {
   }
 
   if (isError) {
+    toast.error('Unauthorized Access')
+    router.push('/auth/login');    
     return <div>{error}</div>;
   }
 

@@ -2,17 +2,12 @@ import { useState } from "react";
 import useCreateJobView from "./views/useCreateJob";
 
 const CreateJob = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [salary, setSalary] = useState('');
-  const { handleSubmit ,error,handleErrorChange} = useCreateJobView(title, description, location, salary,setTitle,setDescription,setLocation,setSalary);
+  const {  handleSubmit,
+    error,
+    handleErrorChange,
+    title, description, location, salary,setTitle,setDescription,setLocation,setSalary,handleFormSubmit} = useCreateJobView();
 
-  const handleFormSubmit = (event:any) => {
-    event.preventDefault();
-    handleSubmit();
-    
-  };
+  
   
   return (
     <div className="flex flex-col items-center">

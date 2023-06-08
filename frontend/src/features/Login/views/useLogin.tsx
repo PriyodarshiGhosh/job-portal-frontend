@@ -1,12 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { axiosInstance } from '@/utils/axios';
 import ApiRoutes from '@/config/apiRoutes';
-const useLoginView = (email:string,password:string) => {
-  const router = useRouter();
+import Routes from '@/config/routes';
+const useLoginView = () => {
   const queryClient = useQueryClient(); // Access QueryClient instance
-
+  const [email, setEmail] = useState('');
+    const [password, setPassword] = useState(''); 
+    const router=useRouter();
+    const handleRegisterClick = () => {
+      router.push('/auth/register');
+    };
+    useEffect(()=>{
+      const token = window.localStorage.getItem('token');
+      if(token?.length){
+        const role = window.localStorage.getItem('role');
+        if (role === 'candidate') {
+          router.push('/candidate/candidatePage');
+        }  else if (role === 'recruiter') {
+          router.push('/recruiter/recruiter');
+        }
+        else{
+          router.push(Routes.LOGIN);
+        }
+      }
+      },[])
   const loginMutation = useMutation(
     async () => {
       const response = await axiosInstance.post(ApiRoutes.LOGIN, { email, password });
@@ -15,15 +34,14 @@ const useLoginView = (email:string,password:string) => {
       const role = response.data.role;
       // Store token in memory
       localStorage.setItem('token', token);
+      localStorage.setItem('role',role)
       return { token, role };
     },
     {
       onSuccess: ({ role }) => {
         if (role === 'candidate') {
           router.push('/candidate/candidatePage');
-        } else if (role === 'admin') {
-          router.push('/admin');
-        } else if (role === 'recruiter') {
+        }  else if (role === 'recruiter') {
           router.push('/recruiter/recruiter');
         }
       }
@@ -37,6 +55,11 @@ const useLoginView = (email:string,password:string) => {
 
   return {
     handleSubmit,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleRegisterClick
   };
 };
 

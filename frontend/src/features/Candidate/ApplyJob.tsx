@@ -9,9 +9,8 @@ type ApplyJobProps = {
 };
 
 export default function ApplyJob({ jobId, closeModal }: ApplyJobProps) {
-  const [resume, setResume] = useState('');
   const [jobIdState, setJobIdState] = useState('');
-  const { handleSubmit } = useApplyJobView(resume, jobId);
+  const { handleSubmit,resume ,setResume} = useApplyJobView(jobId);
   const router = useRouter();
 
   // Retrieve jobId from the query parameter in the URL

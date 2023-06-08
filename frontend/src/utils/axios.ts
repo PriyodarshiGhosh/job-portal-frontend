@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Routes from '@/config/routes';
-
+import Router from 'next/router'
 export const axiosInstance = axios.create({
   baseURL: 'http://localhost:5005',
   timeout: 30000,
@@ -42,6 +42,7 @@ const getGenericErrorMessage = (e: any) => {
       const isLoginPage = window.location.pathname.includes(Routes.LOGIN) 
       const isRegisterPage=window.location.pathname.includes(Routes.REGISTER)
       const isRecruiterPage=window.location.pathname.includes(Routes.RECRUITER)
+      const isCandidatePage=window.location.pathname.includes(Routes.CANDIDATE)
       if(isRegisterPage){
         if(error?.response?.status === 422){
           if(error?.response?.data?.errors?.password && error?.response?.data?.errors?.password[0]==='Password must be longer than or equal to 6 characters'){
@@ -53,17 +54,26 @@ const getGenericErrorMessage = (e: any) => {
           throw error;
         }
       }
-      if (!isLoginPage) {
+       if (!isLoginPage) {
         console.log("not login page")
         if (error?.response?.status === 401 || error?.response?.status === 402 ||error?.response?.status === 500) {
           toast.error('Unauthorized Access');
           console.log("enter")
           window.localStorage.removeItem('accessToken');
-          window.location.replace(Routes.LOGIN);
+          Router.push(Routes.LOGIN)
+          //window.location.replace(Routes.LOGIN);
+        }
+       else if(isCandidatePage && error?.response?.status === 403){
+          toast.error("already applied")
         }
         else if(isRecruiterPage && error?.response?.status === 404){
             console.log("recruiter")
             toast.error("No applicants for this position")
+        }
+        else if(isRecruiterPage && error?.response?.status === 403){
+          toast.error('Unauthorized Access')
+          Router.push(Routes.LOGIN)
+            // window.location.replace(Routes.LOGIN);
         }
         else if(error?.response?.status === 404||error?.response?.status === 422){
             console.log("error received")

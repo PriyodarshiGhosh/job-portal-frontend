@@ -4,7 +4,8 @@ import axios from 'axios';
 import { axiosInstance } from '@/utils/axios';
 import ApiRoutes from '@/config/apiRoutes';
 import { toast } from 'react-toastify';
-const useApplyJobView=(resume:string,jobId:any)=>{
+const useApplyJobView=(jobId:any)=>{
+  const [resume, setResume] = useState('');
     const { mutateAsync } = useMutation(async (jwtToken: string) => {
         try {
           const response = await axiosInstance.post(
@@ -35,7 +36,7 @@ const useApplyJobView=(resume:string,jobId:any)=>{
         }
       };
       return {
-        handleSubmit,
+        handleSubmit,resume,setResume
       };
 }
 export default useApplyJobView;

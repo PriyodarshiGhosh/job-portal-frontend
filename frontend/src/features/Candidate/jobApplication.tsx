@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '@/utils/axios';
 import ApiRoutes from '@/config/apiRoutes';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 
 export default function JobApplication() {
   const [error, setError] = useState('');
-  const [selectedJob, setSelectedJob] = useState('');
   const [showApplications, setShowApplications] = useState(true); // State variable to track whether to show applications
-
+const route=useRouter();
   const { data: jobApplications, isLoading, isError } = useQuery(
     ['jobApplications'],
     async () => {
@@ -38,6 +39,8 @@ export default function JobApplication() {
   }
 
   if (isError) {
+    toast.error('Unauthorized Access')
+    route.push('/auth/login');
     return <div>{error}</div>;
   }
 

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { axiosInstance } from '@/utils/axios';
 import ApiRoutes from '@/config/apiRoutes';
-const useFetchApplicationView=(Id:number,jobData:any,setJobData:any)=>{
+const useFetchApplicationView=(Id:number)=>{
+  const [jobData, setJobData] = useState<any[]>([]);
     const { mutateAsync } = useMutation(async (jwtToken: string) => {
         const response = await axiosInstance.get(ApiRoutes.RECRUITER+`/id?id=${Id}`, {
           headers: {
@@ -31,7 +32,7 @@ const useFetchApplicationView=(Id:number,jobData:any,setJobData:any)=>{
         }
       }, [jobData]);
       return {
-        handleSubmit,
+        handleSubmit,jobData,setJobData
       }
 }
 export default useFetchApplicationView;
