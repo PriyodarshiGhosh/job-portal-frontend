@@ -13,10 +13,8 @@ const Recruiter = () => {
     setActiveTab(tab);
   };
 
-  const handleLogout = () => {
-    // Remove the token from localStorage or your authentication mechanism         
+  const handleLogout = () => {         
     localStorage.removeItem('token');
-    // Redirect to the login page
     router.push('/auth/login');
   };
 

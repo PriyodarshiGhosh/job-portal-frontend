@@ -5,7 +5,6 @@ import { axiosInstance } from '@/utils/axios';
 import ApiRoutes from '@/config/apiRoutes';
 import Routes from '@/config/routes';
 const useLoginView = () => {
-  const queryClient = useQueryClient(); // Access QueryClient instance
   const [email, setEmail] = useState('');
     const [password, setPassword] = useState(''); 
     const router=useRouter();
@@ -29,10 +28,9 @@ const useLoginView = () => {
   const loginMutation = useMutation(
     async () => {
       const response = await axiosInstance.post(ApiRoutes.LOGIN, { email, password });
-      console.log(response) // Use axiosInstance instead of axios
+      console.log(response) 
       const token = response.data.accessToken;
       const role = response.data.role;
-      // Store token in memory
       localStorage.setItem('token', token);
       localStorage.setItem('role',role)
       return { token, role };

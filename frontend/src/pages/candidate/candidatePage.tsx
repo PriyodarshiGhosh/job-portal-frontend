@@ -18,11 +18,6 @@ const CandidatesPage = () => {
     // Redirect to the login page
     router.push('/auth/login');
   };
-
-  
-
-  
-
   return (
     <div className="min-h-screen py-8" style={{ backgroundImage: 'linear-gradient(0deg, #EDF6FF 60%, #303F60 60%)' }}>
       <div className="max-w-3xl mx-auto">

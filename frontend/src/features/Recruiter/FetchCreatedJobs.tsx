@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ApiRoutes from '@/config/apiRoutes';
 import jwt from 'jsonwebtoken';
@@ -107,6 +107,13 @@ const JobsList = () => {
     event.preventDefault();
     refetch();
   };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      router.push('/auth/login');
+    }
+  }, []); 
 
   if (isLoading) {
     return <div>Loading...</div>;

@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import ApiRoutes from '@/config/apiRoutes';
 import { axiosInstance } from '@/utils/axios';
+import { useRouter } from 'next/router';
 
-const useJobSearchView = (role: string, currentPage: number,setCurrentPage:any,jobData:any, setJobData: any,router:any) => {
+const useJobSearchView = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  
+  const [role, setRole] = useState("");
+  const [jobData, setJobData] = useState<any>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const router=useRouter()
 
   const { mutateAsync } = useMutation(async (jwtToken: string) => {
     setIsLoading(true);
@@ -103,7 +106,7 @@ const useJobSearchView = (role: string, currentPage: number,setCurrentPage:any,j
     handleSubmit,
     handleApply,
     handlePreviousPage,
-    handleNextPage
+    handleNextPage,role,setRole,jobData,setJobData,currentPage,setCurrentPage,router
   };
 };
 

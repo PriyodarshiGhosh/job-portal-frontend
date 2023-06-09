@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useJobSearchView from "./views/useJobSearch";
 import { useRouter } from "next/router";
 import ReactModal from "react-modal";
@@ -8,9 +8,6 @@ import { axiosInstance } from "@/utils/axios";
 import ApiRoutes from "@/config/apiRoutes";
 import { toast } from "react-toastify";
 export default function JobSearch() {
-  const [role, setRole] = useState("");
-  const [jobData, setJobData] = useState<any>(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState("")
   const [isApplying, setIsApplying] = useState(false);
@@ -45,8 +42,10 @@ export default function JobSearch() {
       setIsApplying(true); 
     }
   };
-  const router = useRouter();
-  const { handleSubmit, handleApply,handlePreviousPage,handleNextPage } = useJobSearchView(role,currentPage,setCurrentPage,jobData,setJobData,router);
+  const { handleSubmit,
+    handleApply,
+    handlePreviousPage,
+    handleNextPage,role,setRole,jobData,setJobData,currentPage,setCurrentPage,router } = useJobSearchView();
 
   const closeModal = () => {
     setIsModalOpen(false);
