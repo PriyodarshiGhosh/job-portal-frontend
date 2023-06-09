@@ -10,8 +10,27 @@ const useJobSearchView = () => {
   const [role, setRole] = useState("");
   const [jobData, setJobData] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState("")
   const router=useRouter()
-
+  const formatSalary = (salary:string) => {
+    const numericValue = parseInt(salary, 10); // Parse the string salary to numeric value
+    if (!isNaN(numericValue)) {
+      if (numericValue >= 10000000) {
+        return `${numericValue / 10000000} crore`;
+      } else if (numericValue >= 100000) {
+        return `${numericValue / 100000} lac`;
+      } else {
+        return `${numericValue} thousand`;
+      }
+    } else {
+      return salary; // Return the original string if parsing fails
+    }
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedJobId("");
+  };
   const { mutateAsync } = useMutation(async (jwtToken: string) => {
     setIsLoading(true);
     setError(null);
@@ -106,7 +125,7 @@ const useJobSearchView = () => {
     handleSubmit,
     handleApply,
     handlePreviousPage,
-    handleNextPage,role,setRole,jobData,setJobData,currentPage,setCurrentPage,router
+    handleNextPage,role,setRole,jobData,setJobData,currentPage,setCurrentPage,router,formatSalary,closeModal,selectedJobId,isModalOpen,setSelectedJobId,setIsModalOpen
   };
 };
 

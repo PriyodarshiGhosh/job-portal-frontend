@@ -8,9 +8,6 @@ import { axiosInstance } from "@/utils/axios";
 import ApiRoutes from "@/config/apiRoutes";
 import { toast } from "react-toastify";
 export default function JobSearch() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedJobId, setSelectedJobId] = useState("")
-  const [isApplying, setIsApplying] = useState(false);
   const { mutateAsync } = useMutation(async (param:{resume:any,jobId:any,jwtToken:any}) => {
     try {
       const response = await axiosInstance.post(
@@ -38,40 +35,12 @@ export default function JobSearch() {
     } catch (error:any) {
       
     }
-    finally {
-      setIsApplying(true); 
-    }
+    
   };
   const { handleSubmit,
     handleApply,
     handlePreviousPage,
-    handleNextPage,role,setRole,jobData,setJobData,currentPage,setCurrentPage,router } = useJobSearchView();
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedJobId("");
-  };
-
-  const openModal = (jobId: string) => {
-    setSelectedJobId(jobId);
-    setIsModalOpen(true);
-  };
-  const formatSalary = (salary:string) => {
-    const numericValue = parseInt(salary, 10); // Parse the string salary to numeric value
-    if (!isNaN(numericValue)) {
-      if (numericValue >= 10000000) {
-        return `${numericValue / 10000000} crore`;
-      } else if (numericValue >= 100000) {
-        return `${numericValue / 100000} lac`;
-      } else {
-        return `${numericValue} thousand`;
-      }
-    } else {
-      return salary; // Return the original string if parsing fails
-    }
-  };
-  
-
+    handleNextPage,role,setRole,jobData,setJobData,currentPage,setCurrentPage,router ,formatSalary,closeModal,selectedJobId,isModalOpen,setSelectedJobId,setIsModalOpen} = useJobSearchView();
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl font-bold mt-8">Search for a Job</h1>

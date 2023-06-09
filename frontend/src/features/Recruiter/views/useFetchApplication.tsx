@@ -25,7 +25,9 @@ const useFetchApplicationView=(Id:number)=>{
           
         }
       };
-    
+      useEffect(() => {
+        handleSubmit();
+      }, []);
       useEffect(() => {
         if (jobData) {
           console.log(jobData);

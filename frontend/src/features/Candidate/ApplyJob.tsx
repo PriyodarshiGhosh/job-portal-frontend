@@ -8,22 +8,7 @@ type ApplyJobProps = {
 };
 
 export default function ApplyJob({ jobId, closeModal }: ApplyJobProps) {
-  const [jobIdState, setJobIdState] = useState('');
   const { handleSubmit,resume ,setResume} = useApplyJobView(jobId);
-  const router = useRouter();
-
-  // Retrieve jobId from the query parameter in the URL
-  useEffect(() => {
-    const { query } = router;
-    const jobIdParam = query.jobId as string;
-
-    if (jobIdParam) {
-      setJobIdState(jobIdParam);
-    }
-  }, [router.query]);
-
-  
-
   return (
     <div className="min-h-screen py-8" style={{ backgroundImage: 'linear-gradient(0deg, #EDF6FF 60%, #303F60 60%)' }}>
       <div className="flex flex-col items-center">

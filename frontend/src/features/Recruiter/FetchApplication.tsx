@@ -8,13 +8,7 @@ type FetchApplicationProps = {
 };
 
 export default function FetchApplication({ jobId, closeModal }: FetchApplicationProps) {
-  const { handleSubmit,jobData,setJobData } = useFetchApplicationView(jobId);
-
-  useEffect(() => {
-    // Call the handleSubmit function immediately after rendering
-     console.log(jobId)
-        handleSubmit();
-  }, []);
+  const { jobData} = useFetchApplicationView(jobId);
 
   return (
     <div className="min-h-screen py-8" style={{
