@@ -39,9 +39,7 @@ const route=useRouter();
   }
 
   if (isError) {
-    toast.error('Unauthorized Access')
-    route.push('/auth/login');
-    return <div>{error}</div>;
+    return <div>No job applications found</div>;
   }
 
   const toggleApplications = () => {
@@ -51,7 +49,7 @@ const route=useRouter();
   return (
     <div>
       <h1 className="text-2xl font-bold mt-8">Your Job Applications</h1>
-      {showApplications && (
+      {showApplications && jobApplications.length>0?(
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {jobApplications.map((jobApplication: any) => (
             <div
@@ -65,6 +63,8 @@ const route=useRouter();
             </div>
           ))}
         </div>
+      ):(
+        <div>No job applications found.</div>
       )}
     </div>
   );
