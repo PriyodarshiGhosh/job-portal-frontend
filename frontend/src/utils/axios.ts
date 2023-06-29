@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import Routes from '@/config/routes';
 import Router from 'next/router'
 export const axiosInstance = axios.create({
-  baseURL: 'http://3.110.191.154:5005',
+  baseURL: 'http://172.31.3.137:5005',
   timeout: 30000,
 });
 const getGenericErrorMessage = (e: any) => {
