@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import ApiRoutes from '@/config/apiRoutes';
 import { axiosInstance } from '@/utils/axios';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 const useJobSearchView = () => {
   const [isLoading, setIsLoading] = useState(false);
